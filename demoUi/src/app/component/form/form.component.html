@@ -1,0 +1,28 @@
+<p-toast life="5000" position="top-right"></p-toast>
+<p-panel >
+  <ng-template pTemplate="header">
+    Please enter your name and pick the Sectors you are currently involved in.
+  </ng-template>
+  <div class="p-field p-fluid" [formGroup]="userForm" >
+    <label for="form-name" style="width:50px">Name</label>
+    <input id="form-name" type="text" pInputText [maxlength]="200" [formControlName]="'name'" [required]="true">
+    <small id="name-help" class="p-error" *ngIf="!userForm.get('name').valid && userForm.get('name').dirty">Name is required!</small>
+  </div>
+
+  <div class="p-field p-fluid" [formGroup]="userForm">
+    <label for="form-sectors">Sectors</label>
+      <p-listbox id="form-sectors" [required]="true" [formControlName]="'sectors'" [(ngModel)]="this.form.sectors" [options]="sectors" [multiple]="true" optionLabel="name" optionValue="id" [listStyle]="{'max-height':'250px'}"></p-listbox>
+    <small id="sectors-help" class="p-error" *ngIf="!userForm.get('sectors').valid && userForm.get('sectors').dirty">Sectors is required!</small>
+  </div>
+  <div class="p-field p-fluid" [formGroup]="userForm">
+    <label for="form-agreeTerms" style="width:120px">Agree to terms</label>
+    <p-inputSwitch id="form-agreeTerms" [required]="true" [formControlName]="'agreeTerms'"></p-inputSwitch>
+    <small id="agreeTerms-help" class="p-error" *ngIf="!userForm.get('agreeTerms').valid && userForm.get('agreeTerms').dirty">Agree to terms is required!</small>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="p-buttonset">
+      <button pButton type="button" label="Save" [disabled]="!userForm.valid" icon="pi pi-check" (click)="save()"></button>
+      <button pButton type="button" label="Clear" icon="pi pi-refresh" (click)="clear()"></button>
+    </div>
+  </ng-template>
+</p-panel>
